@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Radio en Vivo</title>
+
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#000000">
+<link rel="icon" href="logo.png">
+
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+
+<body>
+
+<!-- 🎥 VIDEO DE FONDO (SE MANTIENE) -->
+<video class="bg-video" autoplay muted loop playsinline>
+  <source src="fondo.mp4" type="video/mp4">
+</video>
+
+<!-- 🖼️ FONDOS ROTATIVOS -->
+<div class="bg-slideshow"></div>
+<div class="overlay"></div>
+
+<main class="player">
+  <img src="logo.png" class="cover">
+
+  <h1>Radio en Vivo</h1>
+  <p class="status">EN VIVO</p>
+
+  <!-- 🎵 AUDIO -->
+  <audio id="radio" src="https://uk14freenew.listen2myradio.com/live.mp3?typeportmount=s1_28160_stream_964937504"></audio>
+
+  <!-- 📺 TV EN VIVO (DESPLEGABLE, NO ROMPE EL DISEÑO) -->
+  <div id="tvContainer" class="tv-container">
+    <div class="tv-responsive">
+      <iframe
+        id="tvFrame"
+        src="https://tv.streamcasthd.com/live-stream-video-widget/radiomastv"
+        allow="autoplay; fullscreen"
+        allowfullscreen>
+      </iframe>
+    </div>
+  </div>
+
+  <!-- ▶ CONTROLES -->
+  <div class="controls">
+    <button onclick="togglePlay()" id="playBtn">
+      <i class="fas fa-play"></i>
+    </button>
+
+    <button onclick="toggleTV()" id="tvBtn">
+      <i class="fas fa-tv"></i>
+    </button>
+  </div>
+
+  <!-- 🔊 VOLUMEN -->
+  <div class="volume">
+    <button id="muteBtn" onclick="toggleMute()">
+      <i class="fas fa-volume-up"></i>
+    </button>
+
+    <input type="range" id="volumeControl" min="0" max="100" value="80">
+  </div>
+
+  <!-- 🌐 REDES -->
+  <div class="social">
+    <a href="#"><i class="fa-brands fa-facebook"></i></a>
+    <a href="#"><i class="fa-brands fa-instagram"></i></a>
+    <a href="#"><i class="fa-brands fa-whatsapp"></i></a>
+    <a href="#"><i class="fa-brands fa-tiktok"></i></a>
+    <a href="#"><i class="fa-brands fa-youtube"></i></a>
+    <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
+    <a href="#" id="installBtn"><i class="fas fa-download"></i></a>
+  </div>
+  
+  <footer class="footer">
+    <p>
+      © RADIO 104.9 • <span class="names">LUCA BRONDI - MOISES SOLORZA</span>
+    </p>
+  </footer>
+
+</main>
+
+<script>
+const radio = document.getElementById("radio");
+const playBtn = document.getElementById("playBtn");
+const volumeControl = document.getElementById("volumeControl");
+const muteBtn = document.getElementById("muteBtn");
+
+const tvContainer = document.getElementById("tvContainer");
+const tvVideo = document.getElementById("tvVideo");
+
+/* 🎵 AUDIO */
+function togglePlay() {
+  if (radio.paused) {
+    radio.play();
+    playBtn.innerHTML = '<i class="fas fa-pause"></i>';
+  } else {
+    radio.pause();
+    playBtn.innerHTML = '<i class="fas fa-play"></i>';
+  }
+}
+
+volumeControl.addEventListener("input", () => {
+  radio.volume = volumeControl.value / 100;
+});
+
+function toggleMute() {
+  radio.muted = !radio.muted;
+  muteBtn.innerHTML = radio.muted
+    ? '<i class="fas fa-volume-mute"></i>'
+    : '<i class="fas fa-volume-up"></i>';
+}
+
+/* 📺 TV */
+function toggleTV() {
+  const active = tvContainer.classList.toggle("active");
+
+  if (active) {
+    radio.pause();
+    playBtn.innerHTML = '<i class="fas fa-play"></i>';
+    tvVideo.play();
+  } else {
+    tvVideo.pause();
+  }
+}
+</script>
+
+<style>
+/* 📺 TV DESPLEGABLE (RESPETA EL DISEÑO) */
+.tv-container {
+  width: 100%;
+  max-height: 0;
+  overflow: hidden;
+  margin: 15px 0;
+  transition: max-height .4s ease, opacity .3s ease;
+  opacity: 0;
+}
+
+.tv-container.active {
+  max-height: 360px;
+  opacity: 1;
+}
+
+.tv-container video {
+  width: 100%;
+  border-radius: 15px;
+  background: #000;
+  box-shadow: 0 0 25px rgba(0,0,0,.6);
+}
+
+#tvBtn {
+  background: rgba(255,255,255,.15);
+}
+</style>
+
+<script src="main.js"></script>
+
+</body>
+</html>

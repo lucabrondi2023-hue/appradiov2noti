@@ -1,0 +1,318 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Arial', sans-serif;
+}
+
+body {
+  height: 100vh;
+  background: #000;
+  overflow: hidden;
+  color: #fff;
+}
+
+/* =====================
+   FONDO ANIMADO
+===================== */
+.bg {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(120deg, #000, #1a1a1a, #000);
+  animation: bgmove 8s infinite alternate;
+  z-index: -3;
+}
+
+@keyframes bgmove {
+  from { filter: hue-rotate(0deg); }
+  to { filter: hue-rotate(60deg); }
+}
+
+/* =====================
+   VIDEO DE FONDO
+===================== */
+.bg-video {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -2;
+  filter: brightness(0.35);
+}
+
+/* =====================
+   SLIDESHOW + OVERLAY
+===================== */
+.bg-slideshow {
+  position: fixed;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  animation: fadebg 1.5s ease;
+  z-index: -2;
+}
+
+@keyframes fadebg {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.55);
+  z-index: -1;
+}
+
+/* =====================
+   PLAYER
+===================== */
+.player {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 20px;
+}
+
+/* =====================
+   LOGO
+===================== */
+.cover {
+  width: 200px;
+  border-radius: 20px;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.03); }
+  100% { transform: scale(1); }
+}
+
+/* =====================
+   TEXTO
+===================== */
+h1 {
+  margin-top: 20px;
+  font-size: 24px;
+}
+
+.status {
+  color: #ff0000;
+  margin-bottom: 20px;
+}
+
+/* =====================
+   TV DESPLEGABLE RESPONSIVE
+===================== */
+.tv-container {
+  width: 100%;
+  max-width: 420px;
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  margin-bottom: 10px;
+  transition: max-height .45s ease, opacity .35s ease;
+}
+
+.tv-container.active {
+  max-height: 60vh;
+  opacity: 1;
+}
+
+/* IFRAME RESPONSIVE */
+.tv-responsive {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #000;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 0 25px rgba(0,0,0,.6);
+}
+
+/* Fallback */
+@supports not (aspect-ratio: 16 / 9) {
+  .tv-responsive {
+    padding-top: 56.25%;
+  }
+}
+
+.tv-responsive iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+/* =====================
+   CONTROLES
+===================== */
+.controls {
+  margin-top: 10px;
+}
+
+.controls button {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  border: none;
+  background: #ff0000;
+  color: #fff;
+  font-size: 32px;
+  cursor: pointer;
+  box-shadow: 0 0 20px #ff0000;
+  transition: transform .2s ease;
+}
+
+.controls button:hover {
+  transform: scale(1.08);
+}
+
+/* =====================
+   VOLUMEN
+===================== */
+.volume {
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.volume input {
+  width: 140px;
+}
+
+.volume button {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+/* =====================
+   REDES
+===================== */
+.social {
+  margin-top: 30px;
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.social a {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 21px;
+  backdrop-filter: blur(6px);
+  box-shadow: 0 0 10px rgba(0,0,0,0.4);
+  transition: all 0.25s ease;
+  text-decoration: none;
+}
+
+.social a:hover {
+  transform: translateY(-3px) scale(1.08);
+  background: rgba(255, 255, 255, 0.12);
+  box-shadow: 0 0 14px rgba(255,255,255,0.25);
+}
+
+/* =====================
+   FOOTER
+===================== */
+.footer {
+  position: relative;
+  text-align: center;
+  font-family: 'Arial', sans-serif;
+  font-size: 1rem;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.4); /* Fondo semitransparente */
+  padding: 10px 0;
+  overflow: hidden;
+}
+
+.footer p {
+  display: inline-block;
+  white-space: nowrap;
+  animation: scrollText 10s linear infinite;
+  margin: 0;
+}
+
+.footer .names {
+  font-weight: bold;
+  color: #00a2ff; /* Dorado brillante */
+  margin-left: 5px;
+}
+
+/* Animación de desplazamiento horizontal suave */
+@keyframes scrollText {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+/* Opcional: efecto de brillo sutil */
+.footer p::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  background: linear-gradient(90deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.3) 50%, rgba(255,255,255,0.1) 100%);
+  animation: shine 2s infinite;
+}
+
+@keyframes shine {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+
+
+/* =====================
+   MOBILE
+===================== */
+@media (max-width: 768px) {
+  .tv-container.active {
+    max-height: 75vh;
+  }
+
+  .cover {
+    width: 160px;
+  }
+}
+
+
+
+.bg-video {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1; /* Para que quede detrás de todo */
+  overflow: hidden;
+}
+
+.bg-video iframe {
+  width: 100%;
+  height: 100%;
+  pointer-events: none; /* Para que no interfiera con los clics */
+}
