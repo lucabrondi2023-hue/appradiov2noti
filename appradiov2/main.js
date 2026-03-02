@@ -86,7 +86,7 @@ function toggleMute() {
 const horarios = [
   { hora: "08:00", titulo: "☀ Buen día", mensaje: "Arrancamos en vivo 🎶" },
   { hora: "12:00", titulo: "🔥 Mediodía", mensaje: "Programa fuerte al aire 🎙" },
-  { hora: "18:50", titulo: "🎧 Tarde", mensaje: "Seguimos acompañándote" }
+  { hora: "18:45", titulo: "🎧 Tarde", mensaje: "Seguimos acompañándote" }
 ];
 
 // 🔹 Pedir permiso
@@ -147,3 +147,4 @@ window.addEventListener("load", async () => {
   iniciarSistema();
 
 });
+
